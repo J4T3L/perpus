@@ -1,5 +1,9 @@
 package Entities;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 public class BukuEntity {
 
     private String genre;
@@ -7,6 +11,14 @@ public class BukuEntity {
     private String penerbit;
     private String tahun;
     private boolean stok;
+//
+    int daysleft;
+    LocalDate start;
+	LocalDate finish;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
 
     public BukuEntity(String genre, String judul, String penerbit, String tahun, boolean stok) {
     
@@ -15,6 +27,16 @@ public class BukuEntity {
         this.penerbit = penerbit;
         this.tahun = tahun;
         this.stok = stok;
+
+        start = LocalDate.now();
+		finish = start.plusDays(14); //waktu pinjam
+        daysleft = Period.between(start, finish).getDays();
+
+        //
+        // this.start = start;
+		// this.finish = finish;
+		this.daysleft = Period.between(finish, LocalDate.now()).getDays();
+
     }
 
     public BukuEntity() {
@@ -53,6 +75,17 @@ public class BukuEntity {
         this.stok = stok;
     }
 
-    
+    //hari
+    public String getStart() {
+		return formatter.format(start);
+	}
+	
+	public String getFinish() {
+		return formatter.format(finish);
+	}
+	
+	public int getDaysLeft() {
+		return Period.between(finish, LocalDate.now()).getDays();
+	}
 
 }

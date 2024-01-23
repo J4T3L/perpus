@@ -3,10 +3,10 @@ package Controllers;
 import java.util.ArrayList;
 
 import Entities.BukuEntity;
-import Interfaces.FilmInterface;
+import Interfaces.BukuInterface;
 import Models.BukuModel;
 
-public class BukuController implements FilmInterface {
+public class BukuController implements BukuInterface {
 
     @Override
     public void create(String genre, String judul, String penerbit, String tahun, boolean stok) {
@@ -36,7 +36,7 @@ public class BukuController implements FilmInterface {
 
     @Override
     public void update(int index, String genre, String judul, String penerbit, String tahun, boolean stok) {
-      BukuEntity bukuEntity=new BukuEntity();
+      BukuEntity bukuEntity = new BukuEntity();
       bukuEntity.setGenre(genre);
       bukuEntity.setJudul(judul);
       bukuEntity.setPenerbit(penerbit);

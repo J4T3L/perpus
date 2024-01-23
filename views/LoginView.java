@@ -28,6 +28,7 @@ public class LoginView extends JFrame {
         panelkanan();
         panekKiri();
         setVisible(true);
+        // createVisitorButton(); //
         
     }
 
@@ -39,6 +40,7 @@ public class LoginView extends JFrame {
         JPasswordField pfPassword;
         JPanel pnlKanan;
         JCheckBox cbPassword;
+        
         
         //panel
         pnlKanan=new JPanel();
@@ -53,10 +55,21 @@ public class LoginView extends JFrame {
         lblLogin.setBounds(195,50,210,50);
         
 
-        lblUsername=new JLabel("username");
+        lblUsername=new JLabel("Username");
         lblUsername.setFont(mainFont);
         lblUsername.setForeground(Color.darkGray);
         lblUsername.setBounds(26,220,97,25);
+
+        //pengunjung
+        JLabel lblVisitorUsername = new JLabel("Pengunjung");
+        lblVisitorUsername.setFont(mainFont);
+        lblVisitorUsername.setForeground(Color.darkGray);
+        lblVisitorUsername.setBounds(26, 170, 150, 25);
+        
+        JTextField tfVisitorUsername = new JTextField();
+        tfVisitorUsername.setFont(mainFont);
+        tfVisitorUsername.setBounds(26, 200, 150, 25);
+        //end
 
         lblPassword=new JLabel("password");
         lblPassword.setFont(mainFont);
@@ -207,7 +220,109 @@ public class LoginView extends JFrame {
         pnlKanan.add(pfPassword);
         pnlKanan.add(btnSignIn);
         pnlKanan.add(btnRegister);
+        //
+        pnlKanan.add(lblVisitorUsername);
+        pnlKanan.add(tfVisitorUsername);
+        // pnlKanan.add(btnVisitor);
+        // pnlKanan.add(btnVisitor);
         c.add(pnlKanan);
+
+        //pengunjung
+        JButton btnVisitor = new JButton("VISITOR");
+        btnVisitor.setFont(new Font("Segoe UI", Font.BOLD, 9));
+        btnVisitor.setBounds(200, 350, 75, 20);
+        btnVisitor.setBackground(Color.lightGray);
+    //     btnVisitor.addMouseListener(new MouseInputListener() {
+    //     String username = "izzat";
+
+    //     @Override
+    //     public void mouseClicked(MouseEvent e) {
+    //         DashboardUserView dashboard = new DashboardUserView(username);
+    //         // Handle visitor button click action
+    //         // JOptionPane.showMessageDialog(null, "Welcome, Visitor!", "Information !", JOptionPane.INFORMATION_MESSAGE);
+    //         // DashboardUserView();
+    //     }
+
+    //     @Override
+    //     public void mousePressed(MouseEvent e) {
+    //     }
+
+    //     @Override
+    //     public void mouseReleased(MouseEvent e) {
+    //     }
+
+    //     @Override
+    //     public void mouseEntered(MouseEvent e) {
+    //         btnVisitor.setBackground(Color.gray);
+    //     }
+
+    //     @Override
+    //     public void mouseExited(MouseEvent e) {
+    //         btnVisitor.setBackground(Color.lightGray);
+    //     }
+
+    //     @Override
+    //     public void mouseDragged(MouseEvent e) {
+    //     }
+
+    //     @Override
+    //     public void mouseMoved(MouseEvent e) {
+    //     }
+    // });
+
+
+    // Implementasi MouseInputListener
+    btnVisitor.addMouseListener(new MouseInputListener() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Mendapatkan username dari JTextField
+        String manualUsername = tfVisitorUsername.getText();
+        DashboardUserView dashboard = new DashboardUserView(manualUsername);
+        // Handle visitor button click action
+        // JOptionPane.showMessageDialog(null, "Welcome, Visitor!", "Information !", JOptionPane.INFORMATION_MESSAGE);
+        // DashboardUserView();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // Implementasi jika tombol mouse ditekan
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // Implementasi jika tombol mouse dilepas
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Implementasi jika mouse masuk ke area tombol
+        btnVisitor.setBackground(Color.gray);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Implementasi jika mouse keluar dari area tombol
+        btnVisitor.setBackground(Color.lightGray);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // Implementasi jika mouse sedang di-drag
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Implementasi jika mouse bergerak (tanpa menekan tombol)
+    }
+});
+
+
+
+    pnlKanan.add(btnVisitor);
+
+
+    //end pengunjung
+    // existing code...
     }
 
     public void panekKiri()
@@ -221,7 +336,7 @@ public class LoginView extends JFrame {
         // panel
         JPanel pnlKiri = new JPanel();
         pnlKiri.setBounds(0, 0, 370, 490);
-        pnlKiri.setBackground(Color.darkGray);
+        pnlKiri.setBackground(Color.white);
         pnlKiri.setLayout(null);
 
         // label

@@ -168,11 +168,11 @@ public class DashboardUserView extends JFrame {
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         add(searchPanel);
-        JButton bookTicketButton = new JButton("pinjam");
+        JButton Pinjam = new JButton("pinjam");
   
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(bookTicketButton);
+        buttonPanel.add(Pinjam);
         add(buttonPanel);
         JScrollPane scrollPane = new JScrollPane(bukuTable);
         add(scrollPane);
@@ -187,7 +187,7 @@ public class DashboardUserView extends JFrame {
         add(logoutPanel);
 
            try {
-            bookTicketButton.addActionListener(new ActionListener() {
+            Pinjam.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
@@ -239,7 +239,7 @@ public class DashboardUserView extends JFrame {
                 detailTransaksiController.create(new BukuEntity(selectedBuku.getGenre(), selectedBuku.getJudul(), selectedBuku.getPenerbit(), selectedBuku.getTahun(), selectedBuku.isStok()), new UserEntity(username));
                 showBookingConfirmation(selectedBuku);
             } else {
-                JOptionPane.showMessageDialog(this, "Please select a buku to book a ticket.");
+                JOptionPane.showMessageDialog(this, "Silahkan pilih buku.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,9 +248,26 @@ public class DashboardUserView extends JFrame {
 
     private void showBookingConfirmation(BukuEntity buku) {
         try {
-            JOptionPane.showMessageDialog(this, "Pesan Tiket buku dengan judul : " + buku.getJudul());
+            // JOptionPane.showMessageDialog(this, "pinjam buku dengan judul : " + buku.getJudul() + buku.getFinish());
+            // JOptionPane.showMessageDialog(this, "waktu : " + buku.getFinish());
+
+            //waktu
+            String judul = buku.getJudul();
+        String finishDate = buku.getFinish();
+
+        // Constructing the output message
+        StringBuilder message = new StringBuilder();
+        message.append("Buku dengan judul: ").append(judul).append("\n");
+        message.append("Tanggal pengembalian: ").append(finishDate).append("\n");
+
+        // Display the formatted message
+        JOptionPane.showMessageDialog(this, message.toString(), "Booking Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
+

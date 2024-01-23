@@ -21,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedWriter;
 
 import Controllers.DetailTransaksiController;
 import Controllers.BukuController;
@@ -323,38 +324,95 @@ private void editBuku() {
         }
     }
 
+    // private void buathistory() {
+    //     try {
+    //         File historyFile = new File("/home/superbia/TAPBO/perpus/history.txt");
     
+    //         // Jika file tidak ada, buat file baru
+    //         if (!historyFile.exists()) {
+    //             historyFile.createNewFile();
+    //         }
+    
+    //         try (BufferedWriter writer = new BufferedWriter(new FileWriter(historyFile, true))) {
+    //             int selectedRow = bukuTable.getSelectedRow();
+    //             if (selectedRow != -1) {
+    //                 BukuEntity selectedBuku = tableModel.getBukuAt(selectedRow);
+    
+    //                 // Menulis informasi history ke file
+    //                 writer.write("\nAksi: Melihat Buku");
+    //                 writer.write("\nPenyewa: ");
+    //                 writer.write("\nGenre: " + selectedBuku.getGenre());
+    //                 writer.write("\nJudul: " + selectedBuku.getJudul());
+    //                 writer.write("\nPenerbit: " + selectedBuku.getPenerbit());
+    //                 writer.write("\nTahun: " + selectedBuku.getTahun());
+    //                 writer.write("\nStok: " + selectedBuku.isStok());
+    //                 writer.write("\n\n");
+                    
+    //                 JOptionPane.showMessageDialog(this, "History berhasil ditambahkan.");
+    //             } else {
+    //                 JOptionPane.showMessageDialog(this, "Harap pilih buku untuk melihat history.");
+    //             }
+    //         } catch (IOException e) {
+    //             System.err.println("Terjadi kesalahan saat menulis ke file: " + e.getMessage());
+    //             e.printStackTrace();
+    //         }
+    //     } catch (Exception e) {
+    //         throw new RuntimeException(e);
+    //     }
+    // }
 
-    private void buathistory() {
-        try {
-            File historyFile = new File("/home/superbia/Downloads/history.txt");
-    
-            // Additional file path handling if needed
-    
-            try (FileWriter writer = new FileWriter(historyFile, true)) {
-                int selectedRow = bukuTable.getSelectedRow();
-                if (selectedRow != -1) {
-                    BukuEntity selectedBuku = tableModel.getBukuAt(selectedRow);
-    
-                    // Write the history information to the file
-                    writer.write("\nAction: Viewed Buku");
-                    writer.write("\nGenre: " + selectedBuku.getGenre());
-                    writer.write("\nJudul: " + selectedBuku.getJudul());
-                    writer.write("\nPenerbit: " + selectedBuku.getPenerbit());
-                    writer.write("\nTahun: " + selectedBuku.getTahun());
-                    writer.write("\nStok: " + selectedBuku.isStok());
-                    writer.write("\n\n");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Please select a buku to view history.");
-                }
-            } catch (IOException e) {
-                System.err.println("An error occurred while writing to the file: " + e.getMessage());
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+private void buathistory() {
+    try {
+        File historyFile = new File("/home/superbia/TAPBO/perpus/history.txt");
+
+        // Jika file tidak ada, buat file baru
+        if (!historyFile.exists()) {
+            historyFile.createNewFile();
         }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(historyFile, true))) {
+            int selectedRow = bukuTable.getSelectedRow();
+            if (selectedRow != -1) {
+                BukuEntity selectedBuku = tableModel.getBukuAt(selectedRow);
+
+                // Input penyewa dan biaya
+                String penyewa = JOptionPane.showInputDialog(this, "Masukkan Nama Penyewa:");
+                String biayaStr = JOptionPane.showInputDialog(this, "Masukkan Biaya:");
+
+                // Parsing biaya menjadi tipe data numerik (gunakan try-catch untuk menangani input yang tidak valid)
+                double biaya = 0;
+                try {
+                    biaya = Double.parseDouble(biayaStr);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Biaya tidak valid. Masukkan angka yang benar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Jika parsing gagal, keluar dari metode
+                }
+
+                // Menulis informasi history ke file
+                writer.write("\nAksi: Melihat Buku");
+                writer.write("\nPenyewa: " + penyewa);
+                writer.write("\nBiaya: " + biaya);
+                writer.write("\nGenre: " + selectedBuku.getGenre());
+                writer.write("\nJudul: " + selectedBuku.getJudul());
+                writer.write("\nPenerbit: " + selectedBuku.getPenerbit());
+                writer.write("\nTahun: " + selectedBuku.getTahun());
+                writer.write("\nStok: " + selectedBuku.isStok());
+                writer.write("\n\n");
+
+                JOptionPane.showMessageDialog(this, "History berhasil ditambahkan.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Harap pilih buku untuk melihat history.");
+            }
+        } catch (IOException e) {
+            System.err.println("Terjadi kesalahan saat menulis ke file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } catch (Exception e) {
+        throw new RuntimeException(e);
     }
+}
+
 }
 
 
